@@ -1,9 +1,7 @@
 import React from "react";
-import { FiBell, FiUser, FiArrowUp, FiArrowDown, FiPlus } from "react-icons/fi";
+import { FiBell, FiUser, FiArrowUp, FiPlus } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import { LuLogOut } from "react-icons/lu";
-import Image from "next/image";
-import graphic from "../assets/graphic.png";
 
 export default function History() {
   return (
