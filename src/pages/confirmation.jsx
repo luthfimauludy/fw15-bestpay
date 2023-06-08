@@ -1,5 +1,5 @@
 import React from "react";
-import { FiBell, FiUser, FiArrowUp, FiPlus, FiSearch } from "react-icons/fi";
+import { FiBell, FiUser, FiArrowUp, FiPlus } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import { LuLogOut } from "react-icons/lu";
 
