@@ -1,118 +1,202 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import { BsTelephone } from "react-icons/bs";
+import { FiLock, FiDownload } from "react-icons/fi";
+import Image from "next/image";
+import microsoft from "../assets/microsoft.png";
+import dropbox from "../assets/dropbox.png";
+import handm from "../assets/h&m.png";
+import airbnb from "../assets/airbnb.png";
+import canon from "../assets/canon.png";
+import dell from "../assets/dell.png";
+import phone from "../assets/phone.png";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <main className="bg-[#E5E5E5]">
+        <div className="flex flex-col items-center w-full h-[900px] bg-header bg-cover bg-no-repeat text-white">
+          <div className="flex justify-between w-full h-40 py-12 px-36">
+            <div className="text-3xl font-semibold">BestPay</div>
+            <div className="flex gap-4">
+              <Link
+                href="./auth/login"
+                className="btn btn-primary px-8 text-lg normal-case"
+              >
+                Login
+              </Link>
+              <Link
+                href="./auth/signup"
+                className="btn bg-white text-[#99A98F] px-8 border-transparent text-lg normal-case"
+              >
+                Sign Up
+              </Link>
+            </div>
+          </div>
+          <div className="max-w-[537px] h-full flex flex-col gap-10 justify-center items-center text-center">
+            <div className="text-[68px] font-bold">
+              Awesome App For Saving Time.
+            </div>
+            <div className="px-10 text-lg">
+              We bring you a mobile app for banking problems that oftenly
+              wasting much of your times.
+            </div>
+            <div>
+              <button className="btn bg-white text-[#99A98F] px-8 border-transparent text-lg normal-case">
+                Try It Free
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        <div className="flex flex-col items-center w-full h-[800px] pt-[150px] pb-[70px] gap-8 text-center">
+          <div className="text-6xl font-bold">
+            <span className="text-[#99A98F]">Why</span> Choose BestPay?
+          </div>
+          <div className="max-w-[567px] text-lg">
+            We have some great features from the application and it’s totally
+            free to use by all users around the world.
+          </div>
+          <div className="flex py-10">
+            <div className="flex flex-col items-center max-w-[367px] h-[320px] gap-9 text-center py-10">
+              <div className="bg-gray-300 w-14 h-14 rounded-full flex justify-center items-center">
+                <BsTelephone size={35} className="text-[#99A98F]" />
+              </div>
+              <div className="text-2xl font-semibold">24/7 Support</div>
+              <div className="min-w-[307px] px-6">
+                We have 24/7 contact support so you can contact us whenever you
+                want and we will respond it.
+              </div>
+            </div>
+            <div className="flex flex-col items-center rounded-2xl bg-white max-w-[367px] h-[320px] gap-9 text-center py-10">
+              <div className="bg-gray-300 w-14 h-14 rounded-full flex justify-center items-center">
+                <FiLock size={35} className="text-[#99A98F]" />
+              </div>
+              <div className="text-2xl font-semibold">Data Privacy</div>
+              <div className="min-w-[307px] px-6">
+                We make sure your data is safe in our database and we will
+                encrypt any data you submitted to us.
+              </div>
+            </div>
+            <div className="flex flex-col items-center max-w-[367px] h-[320px] gap-9 text-center py-10">
+              <div className="bg-gray-300 w-14 h-14 rounded-full flex justify-center items-center">
+                <FiDownload size={35} className="text-[#99A98F]" />
+              </div>
+              <div className="text-2xl font-semibold">Easy Download</div>
+              <div className="min-w-[307px] px-6">
+                BestPay is 100% totally free to use it’s now available on Google
+                Play Store and App Store.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center w-full h-[300px] gap-10 bg-[#ABC4AA] px-[150px] py-[90px]">
+          <div>
+            <Image src={microsoft} alt="logo microsoft" />
+          </div>
+          <div>
+            <Image src={dropbox} alt="logo dropbox" />
+          </div>
+          <div>
+            <Image src={handm} alt="logo H&M" />
+          </div>
+          <div>
+            <Image src={airbnb} alt="logo airbnb" />
+          </div>
+          <div>
+            <Image src={canon} alt="logo canon" />
+          </div>
+          <div>
+            <Image src={dell} alt="logo dell" />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-center w-full h-[600px] gap-12">
+          <div className="text-[#99A98F] bg-[#ABC4AA] px-20 py-6 rounded-[80px] text-[68px] font-bold">
+            Rp. 390.736.500
+          </div>
+          <div className="font-bold text-6xl">
+            <span className="text-[#99A98F]">Money</span> has Been Transfered.
+          </div>
+          <div className="max-w-[567px] text-center text-lg">
+            That amount of money has been transfered from all users. We still
+            counting and going strong!
+          </div>
+        </div>
+        <div className="flex w-full h-[900px] bg-[#ABC4AA] py-20 pr-[100px]">
+          <div className="flex flex-1">
+            <Image className="w-full h-full" src={phone} alt="phone image" />
+          </div>
+          <div className="flex flex-col justify-center min-w-[620px] h-full">
+            <div className="max-w-[507px] text-6xl font-bold">
+              All The <span className="text-[#99A98F]">Great</span> BestPay
+              Features.
+            </div>
+            <div className="flex flex-col gap-4 pt-10">
+              <div className="max-w-[600px]">
+                <div className="flex flex-col gap-3 bg-white rounded-2xl px-6 py-5">
+                  <div className="text-xl font-semibold">
+                    <span className="text-[#99A98F] text-[22px]">1.</span>{" "}
+                    &nbsp;&nbsp;Small Fee
+                  </div>
+                  <div className="text-lg">
+                    We only charge 5% of every success transaction done in
+                    BestPay app.
+                  </div>
+                </div>
+              </div>
+              <div className="max-w-[600px]">
+                <div className="flex flex-col gap-3 bg-white rounded-2xl px-6 py-5">
+                  <div className="text-xl font-semibold">
+                    <span className="text-[#99A98F] text-[22px]">2.</span>{" "}
+                    &nbsp;&nbsp;Data Secured
+                  </div>
+                  <div className="text-lg">
+                    All your data is secured properly in our system and it’s
+                    encrypted.
+                  </div>
+                </div>
+              </div>
+              <div className="max-w-[600px]">
+                <div className="flex flex-col gap-3 bg-white rounded-2xl px-6 py-5">
+                  <div className="text-xl font-semibold">
+                    <span className="text-[#99A98F] text-[22px]">3.</span>{" "}
+                    &nbsp;&nbsp;User Friendly
+                  </div>
+                  <div className="text-lg">
+                    BestPay come up with modern and sleek design and not
+                    complicated.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col items-center w-full pt-[150px] pb-[70px] gap-8 text-center">
+          <div className="text-6xl font-bold">
+            What Users are <span className="text-[#99A98F]">Saying.</span>
+          </div>
+          <div className="max-w-[567px] text-lg">
+            We have some great features from the application and it’s totally
+            free to use by all users around the world.
+          </div>
+          <div className="flex min-w-[988px] py-10">
+            <div className="flex flex-col items-center rounded-2xl bg-white w-full h-[496px] text-center py-[60px]">
+              <div className="bg-gray-300 w-14 h-14 rounded-full flex justify-center items-center">
+                <FiLock size={35} className="text-[#99A98F]" />
+              </div>
+              <div className="text-[26px] pt-[30px] font-semibold">
+                Luthfi Putra M.
+              </div>
+              <div className="text-xl pt-2">Designer</div>
+              <div className="text-lg max-w-[869px] pt-11">
+                “This is the most outstanding app that I’ve ever try in my live,
+                this app is such an amazing masterpiece and it’s suitable for
+                you who is bussy with their bussiness and must transfer money to
+                another person aut there. Just try this app and see the power!”
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer></footer>
+    </>
+  );
 }
