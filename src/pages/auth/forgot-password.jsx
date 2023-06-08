@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import phone from "../../assets/phone-auth.png";
-import { FiMail, FiLock, FiEyeOff } from "react-icons/fi";
+import { FiMail } from "react-icons/fi";
 import Link from "next/link";
 
-export default function Login() {
+export default function ForgotPassword() {
   return (
     <main className="bg-[#E5E5E5]">
       <div className="flex min-h-screen">

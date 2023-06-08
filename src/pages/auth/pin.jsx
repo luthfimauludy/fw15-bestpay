@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import phone from "../../assets/phone-auth.png";
 
-export default function Login() {
+export default function Pin() {
   return (
     <main className="bg-[#E5E5E5]">
       <div className="flex min-h-screen">
