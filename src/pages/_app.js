@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
           --nunito-font: ${nunito.style.fontFamily};
         }
       `}</style>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }
