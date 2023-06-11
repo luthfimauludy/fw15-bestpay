@@ -1,3 +1,4 @@
+import LoadingBar from "@/components/LoadingBar";
 import "@/styles/globals.css";
 import { Nunito_Sans } from "next/font/google";
 
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
       <Component {...pageProps} />
+      <LoadingBar />
     </>
   );
 }
