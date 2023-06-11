@@ -10,6 +10,30 @@ import {
 import { RxDashboard } from "react-icons/rx";
 import { LuLogOut } from "react-icons/lu";
 import Link from "next/link";
+import cookieConfig from "@/helpers/cookieConfig";
+import { withIronSessionSsr } from "iron-session/next";
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req, res }) {
+    const token = req.session?.token;
+
+    if (!token) {
+      res.setHeader("location", "/auth/login");
+      res.statusCode = 302;
+      res.end();
+      return {
+        props: {},
+      };
+    }
+
+    return {
+      props: {
+        token,
+      },
+    };
+  },
+  cookieConfig
+);
 
 export default function SelfProfile() {
   return (

@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  FiBell,
-  FiUser,
-  FiArrowUp,
-  FiPlus,
-  FiLock,
-  FiEyeOff,
-} from "react-icons/fi";
-import { RxDashboard } from "react-icons/rx";
-import { LuLogOut } from "react-icons/lu";
+import { FiBell, FiLock, FiEyeOff } from "react-icons/fi";
+import SideBar from "@/components/SideBar";
 
 export default function ChangePassword() {
   return (
@@ -28,30 +20,7 @@ export default function ChangePassword() {
           </div>
         </nav>
         <div className="flex w-full px-[150px] py-10 gap-5">
-          <div className="flex flex-col justify-between min-w-[278px] max-h-full bg-white rounded-xl px-10 py-12">
-            <div className="flex flex-col gap-[52px]">
-              <div className="flex items-center gap-6">
-                <RxDashboard size={25} />
-                <p className="text-lg">Dashboard</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <FiArrowUp size={25} />
-                <p className="text-lg">Transfer</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <FiPlus size={25} />
-                <p className="text-lg">Top Up</p>
-              </div>
-              <div className="flex items-center gap-6 text-[#99A98F]">
-                <FiUser size={25} />
-                <p className="text-lg">Profile</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-6">
-              <LuLogOut size={25} />
-              <p className="text-lg">Logout</p>
-            </div>
-          </div>
+          <SideBar />
           <div className="flex flex-col w-full h-full gap-5">
             <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
               <div className="flex flex-col w-full p-[30px] gap-5">
