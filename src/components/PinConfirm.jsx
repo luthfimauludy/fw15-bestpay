@@ -5,11 +5,11 @@ export default function PinConfirm() {
     <div className="flex justify-end pt-[35px]">
       <button
         className="btn w-[170px] bg-[#99A98F] text-white border-none normal-case"
-        onClick={() => window.my_modal_2.showModal()}
+        onClick={() => window.my_modal_3.showModal()}
       >
         Continue
       </button>
-      <dialog id="my_modal_2" className="modal">
+      <dialog id="my_modal_3" className="modal">
         <form method="dialog" className="modal-box bg-[#E5E5E5]">
           <h3 className="font-bold text-lg">Enter PIN to Transfer</h3>
           <p className="max-w-[302px] py-4">
