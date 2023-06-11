@@ -10,6 +10,10 @@ module.exports = {
       {
         primary: "#99A98F",
         "base-100": "#FFFFFF",
+        info: "#0CA5E9",
+        success: "#22c55e",
+        warning: "#F4BF50",
+        error: "#e11d48",
       },
     ],
   },
