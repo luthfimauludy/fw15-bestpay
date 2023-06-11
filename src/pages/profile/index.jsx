@@ -12,6 +12,7 @@ import { LuLogOut } from "react-icons/lu";
 import Link from "next/link";
 import cookieConfig from "@/helpers/cookieConfig";
 import { withIronSessionSsr } from "iron-session/next";
+import SideBar from "@/components/SideBar";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -53,30 +54,7 @@ export default function SelfProfile() {
           </div>
         </nav>
         <div className="flex w-full px-[150px] py-10 gap-5">
-          <div className="flex flex-col justify-between min-w-[278px] max-h-full bg-white rounded-xl px-10 py-12">
-            <div className="flex flex-col gap-[52px]">
-              <div className="flex items-center gap-6">
-                <RxDashboard size={25} />
-                <p>Dashboard</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <FiArrowUp size={25} />
-                <p>Transfer</p>
-              </div>
-              <div className="flex items-center gap-6">
-                <FiPlus size={25} />
-                <p>Top Up</p>
-              </div>
-              <div className="flex items-center gap-6 text-[#99A98F]">
-                <FiUser size={25} />
-                <p>Profile</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-6">
-              <LuLogOut size={25} />
-              <p>Logout</p>
-            </div>
-          </div>
+          <SideBar />
           <div className="flex flex-col w-full h-full gap-5">
             <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
               <div className="flex flex-col justify-center items-center w-full p-[30px] gap-[10px]">
