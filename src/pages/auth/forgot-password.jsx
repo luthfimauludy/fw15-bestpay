@@ -2,31 +2,46 @@ import React from "react";
 import Image from "next/image";
 import phone from "../../assets/phone-auth.png";
 import { FiMail } from "react-icons/fi";
-import Link from "next/link";
 
 export default function ForgotPassword() {
   return (
     <main className="bg-[#E5E5E5]">
-      <div className="flex min-h-screen">
-        <div className="flex flex-1 h-full bg-header bg-cover bg-no-repeat text-white">
-          <div className="flex flex-col py-[50px] px-[100px]">
-            <div className="text-[29px] font-bold">BestPay</div>
-            <div>
-              <Image src={phone} alt="Phone" />
-            </div>
-            <div className="text-2xl font-bold pb-8">
-              App that Covering Banking Needs.
-            </div>
-            <div className="max-w-[497px]">
-              BestPay is an application that focussing in banking needs for all
-              users in the world. Always updated and always following world
-              trends. 5000+ users registered in BestPay everyday with worldwide
-              users coverage.
-            </div>
+      <div className="flex md:flex-row flex-col min-h-screen">
+        {/* Window */}
+        <div className="hidden md:flex flex-col flex-1 bg-header bg-cover bg-no-repeat py-[50px] px-[100px] text-white">
+          <div className="text-[29px] font-bold">BestPay</div>
+          <div>
+            <Image src={phone} alt="Phone" />
+          </div>
+          <div className="text-2xl font-bold pb-8">
+            App that Covering Banking Needs.
+          </div>
+          <div className="max-w-[497px]">
+            BestPay is an application that focussing in banking needs for all
+            users in the world. Always updated and always following world
+            trends. 5000+ users registered in BestPay everyday with worldwide
+            users coverage.
           </div>
         </div>
-        <div className="max-w-[550px] py-[80px] pl-12 pr-[80px]">
-          <div className="flex flex-col gap-8">
+
+        {/* Mobile */}
+        <div className="md:hidden text-center px-[140px] pt-[100px] pb-[60px] text-[29px] font-bold">
+          BestPay
+        </div>
+        <div className="w-full md:max-w-[550px] bg-white md:bg-[#E5E5E5] rounded-t-3xl md:rounded-none py-10 md:py-[80px] px-4 md:pl-12 md:pr-[80px]">
+          {/* Mobile */}
+          <div className="md:hidden flex flex-col justify-center items-center gap-8">
+            <p className="max-w-[394px] text-2xl font-bold leading-loose">
+              Reset Password
+            </p>
+            <p className="max-w-[310px] text-center text-gray-400 leading-loose">
+              Enter your BestPay e-mail so we can send you a password reset
+              link.
+            </p>
+          </div>
+
+          {/* Window */}
+          <div className="hidden md:flex flex-col gap-8">
             <p className="max-w-[394px] text-2xl font-bold leading-loose">
               Did You Forgot Your Password? Don’t Worry, You Can Reset Your
               Password In a Minutes.
