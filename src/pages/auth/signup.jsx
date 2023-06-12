@@ -8,7 +8,9 @@ import { Formik } from "formik";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import cookieConfig from "@/helpers/cookieConfig";
-import axios from "axios";
+import http from "@/helpers/http";
+import { saveEmail } from "@/redux/reducers/auth";
+import { useDispatch } from "react-redux";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -35,16 +37,12 @@ export const getServerSideProps = withIronSessionSsr(
 );
 
 export default function Signup() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [isLoading, setLoading] = React.useState("");
   const [eye, setEye] = React.useState(false);
   const validationSchema = Yup.object({
-    firstName: Yup.string()
-      .min(3, "First name must have at least 3 characters")
-      .required("First name cannot be empty"),
-    lastName: Yup.string()
-      .min(3, "Last name must have at least 3 characters")
-      .required("Last name cannot be empty"),
     username: Yup.string()
       .min(3, "Username must have at least 3 characters")
       .required("Username cannot be empty"),
@@ -59,32 +57,26 @@ export default function Signup() {
   }
 
   const doSignup = async (values) => {
-    const fullName = values.firstName + " " + values.lastName;
-    const form = new URLSearchParams({
-      username: values.username,
-      email: values.email,
-      password: values.password,
-    }).toString();
-    const formData = new FormData();
-    formData.append("fullName", fullName);
+    try {
+      setErrorMessage("");
+      setLoading(true);
+      const form = new URLSearchParams({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      }).toString();
 
-    const { data } = await axios.post("http://localhost:3000/api/signup", form);
-    if (data.success === false) {
-      setErrorMessage("Registration failed!");
-    }
-
-    if (data.success === true) {
-      await axios.patch(
-        "https://cute-lime-goldfish-toga.cyclic.app/profile",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${data.results.token}`,
-          },
-        }
-      );
-      router.push("/auth/login");
+      const { data } = await http().post("/auth/register", form);
+      dispatch(saveEmail(values.email));
+      router.push("/auth/set-pin");
+    } catch (err) {
+      console.log(err);
+      const message = err?.response?.data?.message;
+      if (message?.includes("duplicate")) {
+        setErrorMessage("Email already exists!");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -138,8 +130,6 @@ export default function Signup() {
           <Formik
             onSubmit={doSignup}
             initialValues={{
-              firstName: "",
-              lastName: "",
               username: "",
               email: "",
               password: "",
@@ -161,44 +151,6 @@ export default function Signup() {
                     <div className="flex justify-center alert bg-red-500 border-none shadow-lg mb-5 text-white">
                       {errorMessage}
                     </div>
-                  )}
-                  <div className="flex border-b border-gray-500 gap-5 pb-4">
-                    <FiUser size={35} />
-                    <input
-                      type="text"
-                      name="firstName"
-                      className="w-full bg-transparent rounded-lg border-none outline-none"
-                      placeholder="Enter your first name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.firstName}
-                    />
-                  </div>
-                  {errors.firstName && touched.firstName && (
-                    <label className="label">
-                      <span className="label-text-alt text-red-500">
-                        {errors.firstName}
-                      </span>
-                    </label>
-                  )}
-                  <div className="flex border-b border-gray-500 gap-5 pt-10 pb-4">
-                    <FiUser size={35} />
-                    <input
-                      type="text"
-                      name="lastName"
-                      className="w-full bg-transparent rounded-lg border-none outline-none"
-                      placeholder="Enter your last name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.lastName}
-                    />
-                  </div>
-                  {errors.lastName && touched.lastName && (
-                    <label className="label">
-                      <span className="label-text-alt text-red-500">
-                        {errors.lastName}
-                      </span>
-                    </label>
                   )}
                   <div className="flex border-b border-gray-500 gap-5 pt-10 pb-4">
                     <FiUser size={35} />
@@ -272,7 +224,7 @@ export default function Signup() {
                   )}
                   <div className="pb-10 pt-20">
                     <button
-                      disabled={isSubmitting}
+                      disabled={isLoading}
                       className="btn bg-[#99A98F] hover:bg-gray-300 border-none btn-block normal-case"
                       type="submit"
                     >
