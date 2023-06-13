@@ -12,7 +12,7 @@ export default function Logout() {
   return (
     <div>
       <button
-        className="btn border-none normal-case"
+        className="btn border-none normal-case p-0"
         onClick={() => window.my_modal_1.showModal()}
       >
         <LuLogOut size={25} />
