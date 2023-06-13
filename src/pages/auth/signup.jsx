@@ -225,7 +225,7 @@ export default function Signup() {
                   <div className="pb-10 pt-20">
                     <button
                       disabled={isLoading}
-                      className="btn bg-[#99A98F] hover:bg-gray-300 border-none btn-block normal-case"
+                      className="btn bg-gray-300 hover:bg-[#99A98F] border-none btn-block normal-case"
                       type="submit"
                     >
                       Sign Up
