@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SideBar from "@/components/SideBar";
 
-export default function AmountInput() {
+export default function InputAmount() {
   return (
     <>
       <main className="bg-[#E5E5E5] h-full">
