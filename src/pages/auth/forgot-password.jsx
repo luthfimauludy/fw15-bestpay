@@ -62,7 +62,7 @@ export default function ForgotPassword() {
             </div>
             <div className="pb-10 pt-20">
               <button
-                className="btn bg-gray-300 font-bold border-none btn-block normal-case"
+                className="btn bg-gray-300 hover:bg-[#99A98F] font-bold border-none btn-block normal-case"
                 type="submit"
               >
                 Confirm
