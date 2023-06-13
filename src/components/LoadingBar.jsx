@@ -20,5 +20,5 @@ export default function LoadingBar() {
     };
   }, []);
 
-  return <TopLoadingBar color="black" progress={loading} />;
+  return <TopLoadingBar color="blue" progress={loading} />;
 }
