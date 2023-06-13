@@ -7,12 +7,36 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import SideBar from "@/components/SideBar";
+import { withIronSessionSsr } from "iron-session/next";
+import cookieConfig from "@/helpers/cookieConfig";
 
-export default function Home() {
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req, res }) {
+    const token = req.session?.token;
+
+    if (!token) {
+      res.setHeader("location", "/auth/login");
+      res.statusCode = 302;
+      res.end();
+      return {
+        props: {},
+      };
+    }
+
+    return {
+      props: {
+        token,
+      },
+    };
+  },
+  cookieConfig
+);
+
+export default function Home({ token }) {
   return (
     <>
       <main className="bg-[#E5E5E5] h-full">
-        <Navbar />
+        <Navbar token={token} />
         <div className="flex w-full px-[150px] py-10 gap-5">
           <SideBar />
           <div className="flex flex-col w-full h-full gap-5">
