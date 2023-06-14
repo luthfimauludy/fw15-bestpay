@@ -1,14 +1,64 @@
 import React from "react";
 import Image from "next/image";
 import phone from "../../assets/phone-auth.png";
-import { FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import * as Yup from "yup";
+import { FiLock, FiEye, FiEyeOff, FiMail } from "react-icons/fi";
 import { FaBehanceSquare } from "react-icons/fa";
+import { useRouter } from "next/router";
+import http from "@/helpers/http";
+import { Formik } from "formik";
 
 export default function ResetPassword() {
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState("");
   const [eye, setEye] = React.useState(false);
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Email is not valid!")
+      .required("Email is required!"),
+    password: Yup.string()
+      .min(8, "Password must be strong, at least 8 characters")
+      .required("Password is required!"),
+    confirmPassword: Yup.string()
+      .required("Email is required!")
+      .oneOf([Yup.ref("password"), null], "Password must match"),
+  });
 
   function showEye() {
     setEye(!eye);
+  }
+
+  async function doReset(values) {
+    try {
+      setErrorMessage("");
+      setLoading(true);
+      const form = new URLSearchParams({
+        email: values.email,
+        newPassword: values.password,
+        confirmPassword: values.confirmPassword,
+      }).toString();
+      const { data } = await http().post("/auth/reset-password", form);
+      if (data) {
+        setSuccessMessage("Reset password successfully");
+      }
+    } catch (err) {
+      const message = err?.response?.data?.message;
+      if (message) {
+        setErrorMessage("Error reset password");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (successMessage) {
+    setTimeout(() => {
+      setErrorMessage(false);
+      setSuccessMessage(false);
+      router.push("/auth/login");
+    }, 3000);
   }
 
   return (
@@ -60,61 +110,139 @@ export default function ResetPassword() {
               Now you can create a new password for your BestPay account. Type
               your password twice so we can confirm your new passsword.
             </p>
+            {errorMessage && (
+              <div className="alert alert-error text-xl bg-red-500 text-center border-none">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="alert alert-success text-xl bg-[#99A98F] text-center border-none">
+                {successMessage}
+              </div>
+            )}
           </div>
-          <form className="pt-16">
-            <div className="flex border-b border-gray-500 gap-5 pt-16 pb-4 relative">
-              <FiLock size={35} />
-              <input
-                type={eye ? "text" : "password"}
-                name="password"
-                className="w-full bg-transparent outline-none"
-                placeholder="Enter new password"
-              />
-              <button type="button" onClick={showEye}>
-                {eye ? (
-                  <FiEye
-                    className="flex justify-center items-center right-2 bottom-4 absolute"
-                    size={25}
-                  />
-                ) : (
-                  <FiEyeOff
-                    className="flex justify-center items-center right-2 bottom-4 absolute"
-                    size={25}
-                  />
-                )}
-              </button>
-            </div>
-            <div className="flex border-b border-gray-500 gap-5 pt-16 pb-4 relative">
-              <FiLock size={35} />
-              <input
-                type={eye ? "text" : "password"}
-                name="password"
-                className="w-full bg-transparent outline-none"
-                placeholder="Enter confirm password"
-              />
-              <button type="button" onClick={showEye}>
-                {eye ? (
-                  <FiEye
-                    className="flex justify-center items-center right-2 bottom-4 absolute"
-                    size={25}
-                  />
-                ) : (
-                  <FiEyeOff
-                    className="flex justify-center items-center right-2 bottom-4 absolute"
-                    size={25}
-                  />
-                )}
-              </button>
-            </div>
-            <div className="pb-10 pt-20">
-              <button
-                className="btn bg-gray-300 hover:bg-[#99A98F] font-bold border-none btn-block normal-case"
-                type="submit"
-              >
-                Reset Password
-              </button>
-            </div>
-          </form>
+          <Formik
+            onSubmit={doReset}
+            initialValues={{
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            validationSchema={validationSchema}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleBlur,
+              handleSubmit,
+              handleChange,
+              isSubmitting,
+            }) => {
+              return (
+                <form onSubmit={handleSubmit} className="pt-16">
+                  <div className="flex border-b border-gray-500 gap-5 pb-4">
+                    <FiMail size={35} />
+                    <input
+                      type="text"
+                      name="email"
+                      id="email"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="w-full rounded-lg bg-transparent outline-none"
+                      placeholder="Enter your e-mail"
+                    />
+                  </div>
+                  {errors.email && touched.email && (
+                    <label className="label">
+                      <span className="label-text-alt font-semibold text-sm text-red-500">
+                        {errors.email}
+                      </span>
+                    </label>
+                  )}
+                  <div className="flex border-b border-gray-500 gap-5 pt-16 pb-4 relative">
+                    <FiLock size={35} />
+                    <input
+                      type={eye ? "text" : "password"}
+                      name="password"
+                      id="password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="w-full bg-transparent outline-none"
+                      placeholder="Enter new password"
+                    />
+                    <button type="button" onClick={showEye}>
+                      {eye ? (
+                        <FiEye
+                          className="flex justify-center items-center right-2 bottom-4 absolute"
+                          size={25}
+                        />
+                      ) : (
+                        <FiEyeOff
+                          className="flex justify-center items-center right-2 bottom-4 absolute"
+                          size={25}
+                        />
+                      )}
+                    </button>
+                  </div>
+                  {errors.password && touched.password && (
+                    <label className="label">
+                      <span className="label-text-alt font-semibold text-sm text-red-500">
+                        {errors.password}
+                      </span>
+                    </label>
+                  )}
+                  <div className="flex border-b border-gray-500 gap-5 pt-16 pb-4 relative">
+                    <FiLock size={35} />
+                    <input
+                      type={eye ? "text" : "password"}
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      value={values.confirmPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="w-full bg-transparent outline-none"
+                      placeholder="Enter confirm password"
+                    />
+                    <button type="button" onClick={showEye}>
+                      {eye ? (
+                        <FiEye
+                          className="flex justify-center items-center right-2 bottom-4 absolute"
+                          size={25}
+                        />
+                      ) : (
+                        <FiEyeOff
+                          className="flex justify-center items-center right-2 bottom-4 absolute"
+                          size={25}
+                        />
+                      )}
+                    </button>
+                  </div>
+                  {errors.confirmPassword && touched.confirmPassword && (
+                    <label className="label">
+                      <span className="label-text-alt font-semibold text-sm text-red-500">
+                        {errors.confirmPassword}
+                      </span>
+                    </label>
+                  )}
+                  <div className="pb-10 pt-20">
+                    <button
+                      disabled={isSubmitting}
+                      className="btn bg-gray-300 hover:bg-[#99A98F] font-bold border-none btn-block normal-case"
+                      type="submit"
+                    >
+                      {loading && (
+                        <span className="loading loading-spinner loading-sm"></span>
+                      )}
+                      {!loading && "Confirm"}
+                    </button>
+                  </div>
+                </form>
+              );
+            }}
+          </Formik>
         </div>
       </div>
     </main>
