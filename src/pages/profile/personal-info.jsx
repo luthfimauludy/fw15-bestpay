@@ -62,7 +62,7 @@ export default function PersonalInfo() {
                       </p>
                     </div>
                     <div>
-                      <Link href="./edit-phone" className="text-[#99A98F]">
+                      <Link href="./change-phone" className="text-[#99A98F]">
                         Manage
                       </Link>
                     </div>
