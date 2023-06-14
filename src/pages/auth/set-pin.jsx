@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import http from "@/helpers/http";
 import { clearAuthState } from "@/redux/reducers/auth";
+import { FaBehanceSquare } from "react-icons/fa";
 
 export default function SetPin() {
   const router = useRouter();
@@ -40,7 +41,10 @@ export default function SetPin() {
       <div className="flex md:flex-row flex-col min-h-screen">
         {/* Window */}
         <div className="hidden md:flex flex-col flex-1 bg-header bg-cover bg-no-repeat py-[50px] px-[100px] text-white">
-          <div className="text-[29px] font-bold">BestPay</div>
+          <div className="flex items-center font-semibold">
+            <FaBehanceSquare size={45} color="black" />
+            <p className="font-bold text-[29px]">stPay</p>
+          </div>
           <div>
             <Image src={phone} alt="Phone" priority />
           </div>

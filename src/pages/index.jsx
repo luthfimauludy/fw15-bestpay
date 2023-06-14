@@ -9,6 +9,7 @@ import canon from "../assets/canon.png";
 import dell from "../assets/dell.png";
 import phone from "../assets/phone.png";
 import Link from "next/link";
+import { FaBehanceSquare } from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -16,7 +17,10 @@ export default function Home() {
       <main className="bg-[#E5E5E5]">
         <div className="flex flex-col items-center w-full h-[900px] bg-header bg-cover bg-no-repeat text-white">
           <div className="flex justify-between w-full h-40 py-12 px-36">
-            <div className="text-3xl font-semibold">BestPay</div>
+            <div className="flex items-center font-semibold">
+              <FaBehanceSquare size={45} color="black" />
+              <p className="font-bold text-white text-[29px]">stPay</p>
+            </div>
             <div className="flex gap-4">
               <Link
                 href="./auth/login"

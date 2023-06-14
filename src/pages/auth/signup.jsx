@@ -11,6 +11,7 @@ import cookieConfig from "@/helpers/cookieConfig";
 import http from "@/helpers/http";
 import { saveEmail } from "@/redux/reducers/auth";
 import { useDispatch } from "react-redux";
+import { FaBehanceSquare } from "react-icons/fa";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -85,7 +86,10 @@ export default function Signup() {
       <div className="flex md:flex-row flex-col min-h-screen">
         {/* Window */}
         <div className="hidden md:flex flex-col flex-1 bg-header bg-cover bg-no-repeat py-[50px] px-[100px] text-white">
-          <div className="text-[29px] font-bold">BestPay</div>
+          <div className="flex items-center font-semibold">
+            <FaBehanceSquare size={45} color="black" />
+            <p className="font-bold text-[29px]">stPay</p>
+          </div>
           <div>
             <Image src={phone} alt="Phone" />
           </div>
