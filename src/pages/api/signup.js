@@ -10,7 +10,7 @@ export default withIronSessionApiRoute(async function registerRoute(req, res) {
   // await req.session.save();
   // res.send({ ok: true });
   const request = await fetch(
-    "https://cute-lime-goldfish-toga.cyclic.app/auth/register",
+    "https://outstanding-train-fawn.cyclic.app/auth/register",
     {
       method: "POST",
       body: new URLSearchParams(req.body).toString(),
