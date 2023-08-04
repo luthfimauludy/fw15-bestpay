@@ -12,11 +12,11 @@ export default function Logout() {
   return (
     <div>
       <button
-        className="btn border-none normal-case p-0"
+        className="btn border-none normal-case p-0 gap-6"
         onClick={() => window.my_modal_1.showModal()}
       >
         <LuLogOut size={25} />
-        <p className="text-lg">Logout</p>
+        <p className="font-medium text-lg">Logout</p>
       </button>
       <dialog id="my_modal_1" className="modal">
         <form method="dialog" className="modal-box bg-[#E5E5E5]">
