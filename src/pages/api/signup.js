@@ -10,7 +10,7 @@ export default withIronSessionApiRoute(async function registerRoute(req, res) {
   // await req.session.save();
   // res.send({ ok: true });
   const request = await fetch(
-    "https://outstanding-train-fawn.cyclic.app/auth/register",
+    process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/register",
     {
       method: "POST",
       body: new URLSearchParams(req.body).toString(),
