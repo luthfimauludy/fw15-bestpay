@@ -10,15 +10,23 @@ import { setProfile } from "@/redux/reducers/profile";
 
 export default function Navbar({ token }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.profile.data);
-  const getData = React.useCallback(async () => {
-    const { data } = await http(token).get("/profile");
-    dispatch(setProfile(data.results));
+  const profile = useSelector((state) => state.profile.data);
+
+  const getProfile = React.useCallback(async () => {
+    if (token) {
+      try {
+        const { data } = await http(token).get("/profile");
+        dispatch(setProfile(data.results));
+      } catch (err) {
+        const message = err?.response?.data?.message;
+        return console.log(message);
+      }
+    }
   }, [token, dispatch]);
 
   React.useEffect(() => {
-    getData();
-  }, [getData]);
+    getProfile();
+  }, [getProfile]);
 
   return (
     <nav className="flex justify-between items-center w-full min-h-[140px] bg-white px-[150px] py-[42px] rounded-b-2xl">
@@ -29,22 +37,56 @@ export default function Navbar({ token }) {
         <FaBehanceSquare size={45} color="black" />
         <p className="font-bold">stPay</p>
       </Link>
-      <div className="flex items-center gap-5">
-        <Link href="/profile" className="flex items-center gap-5">
-          <div className="w-[52px] h-[52px]">
-            <Image src={defaultPic} alt="Default picture" />
-          </div>
+      {token ? (
+        <div className="hidden lg:flex justify-center items-center gap-5">
+          <Link
+            href="/profile"
+            className="w-16 h-16 overflow-hidden object-cover rounded-2xl"
+          >
+            {profile?.picture ? (
+              <Image
+                width={150}
+                height={150}
+                className="w-full h-full object-cover"
+                src={profile?.picture}
+                alt="Profile Picture"
+              />
+            ) : (
+              <Image
+                width={150}
+                height={150}
+                className="w-full h-full object-cover"
+                src={defaultPic}
+                alt="Default picture"
+              />
+            )}
+          </Link>
           <div className="flex flex-col">
-            <p className="text-lg font-semibold">{user?.fullName}</p>
-            <p className="text-[13px]">{user?.email}</p>
+            <p className="text-lg font-semibold">{profile?.fullName}</p>
+            <p className="text-[13px]">{profile?.email}</p>
           </div>
-        </Link>
-        <div className="flex justify-end items-center">
-          <button type="button">
-            <FiBell size={25} />
-          </button>
+          <div className="flex justify-end items-center">
+            <button type="button">
+              <FiBell size={25} />
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            href="./auth/login"
+            className="btn bg-white border-transparent px-8 text-lg normal-case"
+          >
+            Login
+          </Link>
+          <Link
+            href="./auth/signup"
+            className="btn bg-[#99A98F] text-white px-8 border-transparent text-lg normal-case"
+          >
+            Sign Up
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }
