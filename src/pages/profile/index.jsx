@@ -14,8 +14,7 @@ import { setProfile } from "@/redux/reducers/profile";
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
     const token = req.session?.token;
-    checkCredentials(token, res, "/auth/profile");
-
+    checkCredentials(token, res, "/auth/login");
     return {
       props: {
         userToken: token,
