@@ -53,7 +53,7 @@ export default function Login() {
       email: values.email,
       password: values.password,
     }).toString();
-    const { data } = await axios.post("http://localhost:3000/api/login", form);
+    const { data } = await axios.post("/api/login", form);
     if (data.success === false) {
       setErrorMessage("Wrong Email or Password");
     }
