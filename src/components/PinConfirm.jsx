@@ -4,7 +4,7 @@ export default function PinConfirm() {
   return (
     <div className="flex justify-end pt-[35px]">
       <button
-        className="btn w-[170px] bg-[#99A98F] text-white border-none normal-case"
+        className="btn w-[170px] bg-gray-300 hover:bg-[#99A98F] border-none normal-case"
         onClick={() => window.my_modal_3.showModal()}
       >
         Continue
