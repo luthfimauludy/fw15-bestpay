@@ -3,7 +3,7 @@ import { FiPlus } from "react-icons/fi";
 
 export default function TopUp() {
   return (
-    <div>
+    <div className="border-l-4 border-transparent px-10">
       <button
         className="flex items-center gap-6"
         onClick={() => window.my_modal_2.showModal()}
@@ -33,7 +33,7 @@ export default function TopUp() {
           </div>
         </form>
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button>Close</button>
         </form>
       </dialog>
     </div>

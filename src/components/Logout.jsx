@@ -10,7 +10,7 @@ export default function Logout() {
     router.replace("/auth/login");
   };
   return (
-    <div>
+    <div className="border-l-4 border-transparent px-10">
       <button
         className="btn border-none normal-case p-0 gap-6"
         onClick={() => window.my_modal_1.showModal()}
