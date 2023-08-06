@@ -10,6 +10,8 @@ import checkCredentials from "@/helpers/checkCredentials";
 import { withIronSessionSsr } from "iron-session/next";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { useSelector } from "react-redux";
+import http from "@/helpers/http";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -24,16 +26,18 @@ export const getServerSideProps = withIronSessionSsr(
   cookieConfig
 );
 
-export default function Status({ userToken, id }) {
+export default function Status({ userToken }) {
   const profile = useSelector((state) => state.profile.data);
   const [transaction, setTransaction] = React.useState({});
   const [recipient, setRecipient] = React.useState({});
-  const router = useRouter();
   const balanceLeft = profile.balance - transaction.amount;
+
+  const {
+    query: { id },
+  } = useRouter();
 
   const getDataStatus = React.useCallback(async () => {
     const { data } = await http(userToken).get("/transactions/" + id);
-    console.log(data);
     if (data.results) {
       setTransaction(data.results);
       setRecipient(data.results.recipient);
@@ -47,7 +51,10 @@ export default function Status({ userToken, id }) {
   return (
     <>
       <Layout token={userToken}>
-        <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
+        <div
+          id={id}
+          className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl"
+        >
           <div className="flex flex-col justify-center items-center w-full p-[30px] gap-7">
             <div className="flex justify-center items-center w-16 h-16 bg-green-500 rounded-full">
               <HiCheck size={35} color="white" />
@@ -121,13 +128,13 @@ export default function Status({ userToken, id }) {
             </div>
           </div>
           <div className="flex gap-4 justify-end pt-[75px]">
-            <button className="btn w-[170px] bg-[#99A98F]/40 text-[#99A98F] border-none normal-case">
+            <button className="btn w-[170px] bg-[#99A98F]/40 hover:bg-[#99A98F] border-none normal-case">
               <FiDownload size={25} />
               Download PDF
             </button>
             <Link
               href="/home"
-              className="btn w-[170px] bg-[#99A98F] text-white border-none normal-case"
+              className="btn w-[170px] bg-[#99A98F]/40 hover:bg-[#99A98F] border-none normal-case"
               type="button"
             >
               Back to Home
