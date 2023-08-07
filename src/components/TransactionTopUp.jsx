@@ -63,13 +63,13 @@ const TransactionTopUp = (props) => {
             <div className="py-3 text-black text-lg font-semibold">Topup</div>
 
             {errorMessage && (
-              <div className="flex flex-row justify-center alert shadow-lg text-white text-lg">
+              <div className="flex flex-row justify-center alert shadow-lg text-lg">
                 <MdError size={30} color="red" />
                 {errorMessage}
               </div>
             )}
             {successMessage && (
-              <div className="flex flex-row justify-center alert shadow-lg text-white text-lg">
+              <div className="flex flex-row justify-center alert shadow-lg text-lg">
                 <MdCheck size={30} color="green" />
                 {successMessage}
               </div>
