@@ -1,6 +1,8 @@
+import React from "react";
 import { BsTelephone } from "react-icons/bs";
-import { FiLock, FiDownload } from "react-icons/fi";
+import { FiLock, FiDownload, FiBell } from "react-icons/fi";
 import Image from "next/image";
+import defaultPic from "@/assets/default-picture.jpg";
 import microsoft from "../assets/microsoft.png";
 import dropbox from "../assets/dropbox.png";
 import handm from "../assets/h&m.png";
@@ -10,31 +12,115 @@ import dell from "../assets/dell.png";
 import phone from "../assets/phone.png";
 import Link from "next/link";
 import { FaBehanceSquare } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "@/redux/reducers/profile";
+import http from "@/helpers/http";
+import { withIronSessionSsr } from "iron-session/next";
+import checkCredentials from "@/helpers/checkCredentials";
+import cookieConfig from "@/helpers/cookieConfig";
 
-export default function Home() {
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req, res }) {
+    const token = req.session?.token;
+    checkCredentials(token, res, "/auth/login");
+
+    if (!token) {
+      res.setHeader("location", "/auth/login");
+      res.statusCode = 302;
+      res.end();
+      return {
+        props: {},
+      };
+    }
+
+    return {
+      props: {
+        userToken: token,
+      },
+    };
+  },
+  cookieConfig
+);
+
+export default function Home({ userToken }) {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.profile.data);
+
+  const getProfile = React.useCallback(async () => {
+    if (userToken) {
+      try {
+        const { data } = await http(userToken).get("/profile");
+        dispatch(setProfile(data.results));
+      } catch (err) {
+        const message = err?.response?.data?.message;
+        return console.log(message);
+      }
+    }
+  }, [userToken, dispatch]);
+
+  React.useEffect(() => {
+    getProfile();
+  }, [getProfile]);
+
   return (
     <>
       <main className="bg-[#E5E5E5]">
         <div className="flex flex-col items-center w-full h-[900px] bg-header bg-cover bg-no-repeat text-white">
           <div className="flex justify-between w-full h-40 py-12 px-36">
-            <div className="flex items-center font-semibold">
+            <Link href="/home" className="flex items-center font-semibold">
               <FaBehanceSquare size={45} color="black" />
               <p className="font-bold text-white text-[29px]">stPay</p>
-            </div>
-            <div className="flex gap-4">
-              <Link
-                href="./auth/login"
-                className="btn btn-primary px-8 text-lg normal-case"
-              >
-                Login
-              </Link>
-              <Link
-                href="./auth/signup"
-                className="btn bg-white text-[#99A98F] px-8 border-transparent text-lg normal-case"
-              >
-                Sign Up
-              </Link>
-            </div>
+            </Link>
+            {userToken ? (
+              <div className="hidden lg:flex justify-center items-center gap-5">
+                <Link
+                  href="/profile"
+                  className="w-16 h-16 overflow-hidden object-cover rounded-2xl"
+                >
+                  {profile?.picture ? (
+                    <Image
+                      width={150}
+                      height={150}
+                      className="w-full h-full object-cover"
+                      src={profile?.picture}
+                      alt="Profile Picture"
+                    />
+                  ) : (
+                    <Image
+                      width={150}
+                      height={150}
+                      className="w-full h-full object-cover"
+                      src={defaultPic}
+                      alt="Default picture"
+                    />
+                  )}
+                </Link>
+                <div className="flex flex-col">
+                  <p className="text-lg font-semibold">{profile?.fullName}</p>
+                  <p className="text-[13px]">{profile?.email}</p>
+                </div>
+                <div className="flex justify-end items-center">
+                  <button type="button">
+                    <FiBell size={25} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="hidden md:flex items-center gap-4">
+                <Link
+                  href="/auth/login"
+                  className="btn btn-primary px-8 text-lg normal-case"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="btn bg-white text-[#99A98F] px-8 border-transparent text-lg normal-case"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
           <div className="max-w-[537px] h-full flex flex-col gap-10 justify-center items-center text-center">
             <div className="text-[68px] font-bold">
