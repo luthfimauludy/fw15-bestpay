@@ -8,7 +8,7 @@ export default function Layout({ children, token: userToken }) {
     <div className="bg-[#E5E5E5] h-full">
       <Navbar token={userToken} />
       <div className="flex w-full px-[150px] py-10 gap-5">
-        <SideBar />
+        <SideBar userToken={userToken} />
         <div className="flex flex-col w-full h-full gap-5">{children}</div>
       </div>
       <Footer />

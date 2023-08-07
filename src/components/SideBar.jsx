@@ -100,7 +100,7 @@ export default function SideBar({ userToken }) {
         </div>
       </div>
       {modalOpen && (
-        <TransactionTopUp visibleModal={modalOpen} token={userToken} />
+        <TransactionTopUp visibleModal={modalOpen} userToken={userToken} />
       )}
       <Logout />
     </div>
