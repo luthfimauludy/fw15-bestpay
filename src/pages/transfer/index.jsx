@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setRecipient as setRecipientAction } from "@/redux/reducers/transfer";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -59,6 +60,9 @@ export default function SearchRecipient({ userToken }) {
 
   return (
     <>
+      <Head>
+        <title>Search Recipient</title>
+      </Head>
       <Layout token={userToken}>
         <div className="flex flex-col w-full h-full gap-5">
           <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
@@ -87,20 +91,18 @@ export default function SearchRecipient({ userToken }) {
                       <>
                         <div>
                           {!item.picture && (
-                            <div className="w-12 h-12 bg-white border rounded flex justify-center items-center">
+                            <div className="w-12 h-12 bg-white border rounded-xl flex justify-center items-center">
                               <FiUser size={35} />
                             </div>
                           )}
                           {item.picture && (
-                            <div className="w-12 h-12 border rounded-lg overflow-hidden">
-                              <Image
-                                className="object-fit rounded"
-                                width={100}
-                                height={100}
-                                src={item.picture}
-                                alt={item.fullName || item.email}
-                              />
-                            </div>
+                            <Image
+                              className="object-cover w-12 h-12 rounded-xl overflow-hidden"
+                              width={100}
+                              height={100}
+                              src={item.picture}
+                              alt={item.fullName || item.email}
+                            />
                           )}
                         </div>
                         <div className="flex flex-col gap-2">
@@ -141,38 +143,6 @@ export default function SearchRecipient({ userToken }) {
           </div>
         </div>
       </Layout>
-      {/* <main className="bg-[#E5E5E5] h-full">
-        <Navbar />
-        <div className="flex w-full px-[150px] py-10 gap-5">
-          <SideBar />
-          <div className="flex flex-col w-full h-full gap-5">
-            <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
-              <div className="flex justify-between items-center">
-                <p className="text-lg font-semibold">Search Receiver</p>
-              </div>
-              <div className="flex gap-4 items-center p-4 bg-gray-200 rounded-xl">
-                <FiSearch size={25} className="text-gray-400" />
-                <input
-                  className="w-full bg-transparent outline-none"
-                  placeholder="Search receiver here"
-                />
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center w-full min-h-[110px] shadow-lg shadow-gray-300/50 rounded-xl p-5 gap-5">
-                  <div className="w-14 h-14">
-                    <Image src={defaultPic} alt="Default picture" />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <p className="font-semibold">Samuel Suhi</p>
-                    <p className="text-sm text-[#6A6A6A]">+62 813-8492-9994</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </main> */}
     </>
   );
 }
