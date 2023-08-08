@@ -6,9 +6,10 @@ import { LuLogOut } from "react-icons/lu";
 export default function Logout() {
   const router = useRouter();
   const doLogout = async () => {
-    await axios.get("http://localhost:3000/auth/logout");
+    await axios.get("/api/logout");
     router.replace("/auth/login");
   };
+
   return (
     <div className="border-l-4 border-transparent px-10">
       <button
