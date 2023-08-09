@@ -74,7 +74,7 @@ export default function Confirmation({ userToken }) {
   return (
     <>
       <Head>
-        <title>Transfer Confirmation</title>
+        <title>Transaction Confirmation</title>
       </Head>
       <Layout token={userToken}>
         <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">

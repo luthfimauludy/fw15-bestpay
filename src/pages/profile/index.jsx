@@ -10,6 +10,7 @@ import Image from "next/image";
 import profilePict from "../../assets/default-picture.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfile } from "@/redux/reducers/profile";
+import Head from "next/head";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -70,6 +71,9 @@ export default function SelfProfile({ userToken }) {
 
   return (
     <>
+      <Head>
+        <title>Profile</title>
+      </Head>
       <Layout token={userToken}>
         <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
           <div className="flex flex-col justify-center items-center w-full p-[30px] gap-[10px]">

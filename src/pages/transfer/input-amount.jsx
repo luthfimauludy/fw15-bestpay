@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "@/components/Layout";
 import { setAmount, setNotes } from "@/redux/reducers/transfer";
+import Head from "next/head";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -46,6 +47,9 @@ export default function InputAmount({ userToken }) {
 
   return (
     <>
+      <Head>
+        <title>Input Amount</title>
+      </Head>
       <Layout token={userToken}>
         <div className="flex flex-col gap-5 min-w-[367px] bg-white p-[30px] rounded-xl">
           <div>

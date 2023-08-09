@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import http from "@/helpers/http";
+import Head from "next/head";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req, res }) {
@@ -50,6 +51,9 @@ export default function Status({ userToken }) {
 
   return (
     <>
+      <Head>
+        <title>Transaction Status</title>
+      </Head>
       <Layout token={userToken}>
         <div
           id={id}
